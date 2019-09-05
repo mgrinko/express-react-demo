@@ -1,5 +1,5 @@
 import React from 'react';
-const API_URL = 'http://localhost:5000/api';
+const API_URL = '/api';
 
 class App extends React.Component {
   async componentDidMount() {
