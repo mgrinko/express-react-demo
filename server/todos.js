@@ -20,11 +20,11 @@ const addTodo = (title) => {
   todos = [...todos, newTodo];
 };
 
-const toggleTodo = (todoId) => {
+const updateTodo = (todoId, params) => {
   todos = todos.map(todo => {
     return (todo.id !== todoId)
       ? todo
-      : { ...todo, completed: !todo.completed };
+      : { ...todo, ...params };
   });
 };
 
@@ -35,6 +35,6 @@ const removeTodo = (todoId) => {
 module.exports = {
   getTodos,
   addTodo,
-  toggleTodo,
+  updateTodo,
   removeTodo,
 };

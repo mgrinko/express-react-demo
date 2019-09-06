@@ -29,21 +29,10 @@ class App extends React.Component {
     this.refreshTodos();
   };
 
-  toggleTodo = (todoId) => {
-    this.setState(state => {
-      const todos = state.todos.map(todo => {
-        if (todo.id !== todoId) {
-          return todo;
-        }
+  toggleTodo = async (todoId, completed) => {
+    await todoApi.updateTodo(todoId, { completed });
 
-        return {
-          ...todo,
-          completed: !todo.completed,
-        };
-      });
-
-      return { todos };
-    })
+    this.refreshTodos()
   };
 
   removeTodo = async (todoId) => {

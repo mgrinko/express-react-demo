@@ -14,7 +14,9 @@ const TodoList = ({ todos, toggleTodo, removeTodo }) => {
               <input
                 type="checkbox"
                 checked={todo.completed}
-                onChange={() => toggleTodo(todo.id)}
+                onChange={(event) => {
+                  toggleTodo(todo.id, event.target.checked);
+                }}
               />
 
               {todo.title}

@@ -12,7 +12,7 @@ const todosRepository = require('./server/todos');
 app.use((req, res, next) => {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.set('Access-Control-Allow-Headers', 'Content-Type');
-  res.set('Access-Control-Allow-Methods', 'DELETE');
+  res.set('Access-Control-Allow-Methods', 'DELETE,PATCH');
   next();
 });
 
@@ -26,6 +26,11 @@ app.post('/api/todos', bodyParser.json(), (req, res) => {
   const todos = todosRepository.getTodos();
 
   res.json(todos[todos.length - 1]);
+});
+
+app.patch('/api/todos/:todoId', bodyParser.json(), (req, res) => {
+  todosRepository.updateTodo(req.params.todoId, req.body);
+  res.json({ success: true });
 });
 
 app.delete('/api/todos/:todoId', (req, res) => {
