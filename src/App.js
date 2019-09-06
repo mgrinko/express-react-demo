@@ -11,24 +11,19 @@ class App extends React.Component {
     todos: [],
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.refreshTodos();
+  }
+
+  async refreshTodos() {
     const todos = await todoApi.getTodos();
 
     this.setState({ todos });
   }
 
-  addTodo = (title) => {
-    this.setState(state => {
-      const newTodo = {
-        id: state.todos.length,
-        title: title,
-        completed: false,
-      };
-
-      return {
-        todos: [...state.todos, newTodo],
-      };
-    });
+  addTodo = async (title) => {
+    await todoApi.addTodo(title);
+    this.refreshTodos();
   };
 
   toggleTodo = (todoId) => {

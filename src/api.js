@@ -5,3 +5,15 @@ export const getTodos = async () => {
 
   return response.json();
 };
+
+export const addTodo = async (title)  => {
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    // headers: {
+    //   'Content-Type': 'application/json; charset=utf-8'
+    // },
+    body: JSON.stringify({ title }),
+  });
+
+  return response.json();
+};

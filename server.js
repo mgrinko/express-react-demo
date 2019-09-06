@@ -10,8 +10,16 @@ let todos = [
   { id: 3, completed: true, title: '3333333' },
 ];
 
-app.get('/api/todos', (req, res) => {
+app.use((req, res, next) => {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+  next();
+});
+
+app.get('/api/todos', (req, res) => {
+  res.json(todos);
+});
+
+app.post('/api/todos', (req, res) => {
   res.json(todos);
 });
 
