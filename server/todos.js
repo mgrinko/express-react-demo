@@ -1,9 +1,9 @@
 const uuidv1 = require('uuid/v1');
 
 let todos = [
-  { id: 1, completed: false, title: '111111' },
-  { id: 2, completed: false, title: '222222' },
-  { id: 3, completed: true, title: '3333333' },
+  { id: '1', completed: false, title: '111111' },
+  { id: '2', completed: false, title: '222222' },
+  { id: '3', completed: true, title: '3333333' },
 ];
 
 const getTodos = () => {

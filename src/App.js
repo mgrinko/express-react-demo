@@ -46,10 +46,10 @@ class App extends React.Component {
     })
   };
 
-  removeTodo = (todoId) => {
-    this.setState(state => ({
-      todos: state.todos.filter(todo => todo.id !== todoId),
-    }));
+  removeTodo = async (todoId) => {
+    await todoApi.removeTodo(todoId);
+
+    this.refreshTodos()
   };
 
   render() {

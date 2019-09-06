@@ -17,3 +17,8 @@ export const addTodo = async (title)  => {
 
   return response.json();
 };
+
+export const removeTodo = async (todoId)  => {
+  const response = await fetch(`${API_URL}/${todoId}`, { method: 'DELETE' });
+  return response.json();
+};
