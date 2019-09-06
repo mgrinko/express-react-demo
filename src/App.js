@@ -3,12 +3,21 @@ import React from 'react';
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
 
+import * as todoApi from './api';
+
+
 class App extends React.Component {
   state = {
     todos: [],
   };
 
-  addTodo = async (title) => {
+  async componentDidMount() {
+    const todos = await todoApi.getTodos();
+
+    this.setState({ todos });
+  }
+
+  addTodo = (title) => {
     this.setState(state => {
       const newTodo = {
         id: state.todos.length,
