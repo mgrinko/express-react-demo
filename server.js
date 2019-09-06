@@ -1,26 +1,30 @@
 // server.js
 
 const express = require('express');
+const bodyParser = require('body-parser');
+
 const app = express();
 const port = process.env.PORT || 5000;
 
-let todos = [
-  { id: 1, completed: false, title: '111111' },
-  { id: 2, completed: false, title: '222222' },
-  { id: 3, completed: true, title: '3333333' },
-];
+const todosRepository = require('./server/todos');
+
 
 app.use((req, res, next) => {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.set('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
 
 app.get('/api/todos', (req, res) => {
-  res.json(todos);
+  res.json(todosRepository.getTodos());
 });
 
-app.post('/api/todos', (req, res) => {
-  res.json(todos);
+app.post('/api/todos', bodyParser.json(), (req, res) => {
+  todosRepository.addTodo(req.body.title);
+
+  const todos = todosRepository.getTodos();
+
+  res.json(todos[todos.length - 1]);
 });
 
 app.use(express.static('build'));

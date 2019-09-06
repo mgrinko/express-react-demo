@@ -22,7 +22,10 @@ class App extends React.Component {
   }
 
   addTodo = async (title) => {
-    await todoApi.addTodo(title);
+    const result = await todoApi.addTodo(title);
+
+    console.log(result);
+
     this.refreshTodos();
   };
 

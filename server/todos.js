@@ -24,7 +24,7 @@ const toggleTodo = (todoId) => {
   todos = todos.map(todo => {
     return (todo.id !== todoId)
       ? todo
-      : { ...todo, completed: !todo.completed }
+      : { ...todo, completed: !todo.completed };
   });
 };
 
@@ -36,5 +36,5 @@ module.exports = {
   getTodos,
   addTodo,
   toggleTodo,
-  removeTodo
+  removeTodo,
 };
