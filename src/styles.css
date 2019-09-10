@@ -1,0 +1,17 @@
+body {
+  margin: 0 100px;
+}
+
+.info {
+  font-size: 18px;
+}
+
+.todo-list {
+  padding: 0;
+}
+
+.todo {
+  display: flex;
+  justify-content: space-between;
+  max-width: 150px;
+}
