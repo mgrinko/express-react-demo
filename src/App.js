@@ -3,7 +3,7 @@ import React from 'react';
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
 
-import { getTodos, addTodo } from './todoApi';
+import * as todoApi from './todoApi';
 
 class App extends React.Component {
   state = {
@@ -15,20 +15,19 @@ class App extends React.Component {
   }
 
   async refreshTodos() {
-    const todos = await getTodos();
+    const todos = await todoApi.getTodos();
 
     this.setState({ todos });
   }
 
   addTodo = async (title) => {
-    await addTodo(title);
+    await todoApi.addTodo(title);
     this.refreshTodos();
   };
 
-  removeTodo = (todoId) => {
-    this.setState(state => ({
-      todos: state.todos.filter(todo => todo.id !== todoId),
-    }));
+  removeTodo = async (todoId) => {
+    await todoApi.removeTodo(todoId);
+    this.refreshTodos();
   };
   toggleTodo = (todoId) => {
     this.setState(state => {

@@ -18,3 +18,11 @@ export const addTodo = async (title) => {
 
   return response.json();
 };
+
+export const removeTodo = async (todoId) => {
+  const response = await fetch(`${TODOS_URL}/${todoId}`, {
+    method: 'delete',
+  });
+
+  return response.json();
+};
