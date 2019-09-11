@@ -3,31 +3,32 @@ import React from 'react';
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
 
-import { getTodos } from './todoApi';
+import { getTodos, addTodo } from './todoApi';
 
 class App extends React.Component {
   state = {
     todos: [],
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.refreshTodos();
+  }
+
+  async refreshTodos() {
     const todos = await getTodos();
 
     this.setState({ todos });
   }
 
-  addTodo = (title) => {
-    this.setState(state => {
-      const newTodo = {
-        id: state.todos.length + 1,
-        title: title,
-        completed: false,
-      };
+  addTodo = async (title) => {
+    await addTodo(title);
+    this.refreshTodos();
+  };
 
-      return {
-        todos: [...state.todos, newTodo],
-      };
-    });
+  removeTodo = (todoId) => {
+    this.setState(state => ({
+      todos: state.todos.filter(todo => todo.id !== todoId),
+    }));
   };
   toggleTodo = (todoId) => {
     this.setState(state => {
@@ -44,11 +45,6 @@ class App extends React.Component {
 
       return { todos };
     })
-  };
-  removeTodo = (todoId) => {
-    this.setState(state => ({
-      todos: state.todos.filter(todo => todo.id !== todoId),
-    }));
   };
 
   render() {

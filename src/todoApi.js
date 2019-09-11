@@ -6,3 +6,12 @@ export const getTodos = async () => {
 
   return response.json();
 };
+
+export const addTodo = async (title) => {
+  const response = await fetch(TODOS_URL, {
+    method: 'post',
+    body: title,
+  });
+
+  return response.json();
+};
