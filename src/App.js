@@ -3,16 +3,18 @@ import React from 'react';
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
 
-const todosFromServer = [
-  { id: 1, completed: true, title: 'HTML' },
-  { id: 2, completed: true, title: 'CSS' },
-  { id: 3, completed: false, title: 'JS' },
-];
+import { getTodos } from './todoApi';
 
 class App extends React.Component {
   state = {
-    todos: todosFromServer,
+    todos: [],
   };
+
+  async componentDidMount() {
+    const todos = await getTodos();
+
+    this.setState({ todos });
+  }
 
   addTodo = (title) => {
     this.setState(state => {
