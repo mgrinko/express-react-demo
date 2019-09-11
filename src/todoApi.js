@@ -10,7 +10,10 @@ export const getTodos = async () => {
 export const addTodo = async (title) => {
   const response = await fetch(TODOS_URL, {
     method: 'post',
-    body: title,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+    body: JSON.stringify({ title }),
   });
 
   return response.json();
