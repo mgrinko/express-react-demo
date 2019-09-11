@@ -9,7 +9,7 @@ export const getTodos = async () => {
 
 export const addTodo = async (title) => {
   const response = await fetch(TODOS_URL, {
-    method: 'post',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
     },
@@ -21,7 +21,19 @@ export const addTodo = async (title) => {
 
 export const removeTodo = async (todoId) => {
   const response = await fetch(`${TODOS_URL}/${todoId}`, {
-    method: 'delete',
+    method: 'DELETE',
+  });
+
+  return response.json();
+};
+
+export const updateTodo = async (todoId, params) => {
+  const response = await fetch(`${TODOS_URL}/${todoId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+    body: JSON.stringify(params),
   });
 
   return response.json();

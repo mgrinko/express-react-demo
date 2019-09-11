@@ -27,8 +27,17 @@ const removeTodo = (todoId) => {
   todos = todos.filter(todo => todo.id !== todoId);
 };
 
+const updateTodo = (todoId, params) => {
+  todos = todos.map(todo => {
+    return todo.id !== todoId
+      ? todo
+      : { ...todo, ...params };
+  });
+};
+
 module.exports = {
   getTodos,
   addTodo,
   removeTodo,
+  updateTodo,
 };

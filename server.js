@@ -5,12 +5,12 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 
-const { getTodos, addTodo, removeTodo } = require('./server/todos');
+const { getTodos, addTodo, removeTodo, updateTodo } = require('./server/todos');
 
 app.use((req, res, next) => {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.set('Access-Control-Allow-Headers', 'content-type');
-  res.set('Access-Control-Allow-Methods', 'DELETE');
+  res.set('Access-Control-Allow-Methods', 'DELETE,PATCH');
   next();
 });
 
@@ -27,6 +27,12 @@ app.post('/api/todos', bodyParser.json(), (req, res) => {
 
 app.delete('/api/todos/:todoId', (req, res) => {
   removeTodo(req.params.todoId);
+
+  res.json({ status: 'success' });
+});
+
+app.patch('/api/todos/:todoId', bodyParser.json(), (req, res) => {
+  updateTodo(req.params.todoId, req.body);
 
   res.json({ status: 'success' });
 });
