@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
@@ -6,56 +6,52 @@ import TodoList from './TodoList';
 import * as todoApi from './api';
 
 
-class App extends React.Component {
-  state = {
-    todos: [],
-  };
+const App = () => {
+  const [todos, setTodos] = useState([]);
 
-  componentDidMount() {
-    this.refreshTodos();
-  }
-
-  async refreshTodos() {
+  const refreshTodos = async () => {
     const todos = await todoApi.getTodos();
 
-    this.setState({ todos });
+    setTodos(todos);
   }
 
-  addTodo = async (title) => {
+  useEffect(() => {
+    refreshTodos();
+  })
+
+  const addTodo = async (title) => {
     const result = await todoApi.addTodo(title);
 
     console.log(result);
 
-    this.refreshTodos();
+    refreshTodos();
   };
 
-  toggleTodo = async (todoId, completed) => {
+  const toggleTodo = async (todoId, completed) => {
     await todoApi.updateTodo(todoId, { completed });
 
-    this.refreshTodos()
+    refreshTodos()
   };
 
-  removeTodo = async (todoId) => {
+  const removeTodo = async (todoId) => {
     await todoApi.removeTodo(todoId);
 
-    this.refreshTodos()
+    refreshTodos()
   };
 
-  render() {
-    return (
-      <>
-        <AddTodoForm
-          addTodo={this.addTodo}
-        />
+  return (
+    <>
+      <AddTodoForm
+        addTodo={addTodo}
+      />
 
-        <TodoList
-          todos={this.state.todos}
-          toggleTodo={this.toggleTodo}
-          removeTodo={this.removeTodo}
-        />
-      </>
-    );
-  }
+      <TodoList
+        todos={todos}
+        toggleTodo={toggleTodo}
+        removeTodo={removeTodo}
+      />
+    </>
+  );
 }
 
 export default App;
